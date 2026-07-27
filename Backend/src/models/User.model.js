@@ -1,26 +1,28 @@
 import {Schema} from 'mongoose'
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt'
 
 const userschema = new Schema({
     name:{
         type:String,
-        require:[true,"name field is Required"],
+        required:[true,"name field is Required"],
         trim:true
     },
     email:{
         type:String,
-        require:[true,"email field is Required"],
+        required:[true,"email field is Required"],
         trim:true,
         lowercase:true,
         unique:true
     },
     password:{
         type:String,
-        require:[true,"password field is Required"],
+        required:[true,"password field is Required"],
         minLength:[6,"Minimum allowed Length for the password is 6"]
     },
 
-    avatar:{
-        type:URL,
+    avatarURL:{
+        type:String,
         default:null
     },
 
@@ -40,6 +42,16 @@ const userschema = new Schema({
 },{timestamps:true})
 
 
-const User = model("User",userschema);
+userschema.pre("save",async function (){
+    if(!this.isModified('password')){
+        return;
+    }
+    const salt =  await bcrypt.genSalt(10);
+
+    this.password = await bcrypt.hash(this.password,salt)
+    
+})
+
+const User = mongoose.model("User",userschema);
 
 export default User;    

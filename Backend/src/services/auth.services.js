@@ -25,3 +25,28 @@ export async function registerUserService({ name, email, password }) {
     };
 
 }
+
+
+export async function loginUserService({email,password}){
+
+    if ( !email || !password) {
+        throw new Error("Email And Password Both Are Required");
+    }
+    email = email.trim().toLowerCase();
+
+    const user = await User.findOne({email})
+
+    if(!user){
+        throw new Error("User Not Found!")
+    }
+
+    const isMatch = await user.comparePassword(password)
+
+    if(!isMatch){
+        throw new Error("Invalid Credentials")
+    }
+
+    const token = user.generateToken()
+
+    return {token,user}
+}

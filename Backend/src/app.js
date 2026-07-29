@@ -3,6 +3,7 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import indexRouter from "./routes/index.routes.js";
 
+
 const app = express();
 const corsOptions = {
     origin:process.env.CLIENT_URL || "http://localhost:5173",

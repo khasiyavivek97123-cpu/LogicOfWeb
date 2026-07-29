@@ -28,9 +28,8 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
-
         
+        const { email, password } = req.body;
 
         const { token, user } = await loginUserService({ email, password })
 
@@ -41,11 +40,19 @@ export const loginUser = async (req, res) => {
             role: user.role,
         };
 
+        const cookieOptions = {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: process.env.NODE_ENV === "production" ? "strict" : "lax",
+            maxAge: 60 * 60 * 1000,
+        }
+
+        res.cookie("accessToken", token, cookieOptions);
+
         return res.status(200).json({
             success: true,
             message: "User Login Successfully",
             data: responseUser,
-            token
         })
 
     } catch (error) {

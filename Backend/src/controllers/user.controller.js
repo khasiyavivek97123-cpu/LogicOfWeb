@@ -1,6 +1,6 @@
 import User from "../models/User.model.js";
 
-export const getProfile = async (req, res) => {
+export const getCurrentUser = async (req, res) => {
     try {
 
         const user = req.user
@@ -18,3 +18,4 @@ export const getProfile = async (req, res) => {
         });
     }
 }
+

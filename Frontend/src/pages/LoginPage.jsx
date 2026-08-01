@@ -1,8 +1,13 @@
 import { useState } from "react";
 import LoginForm from "../components/Auth/LoginForm";
 import { loginUserService } from "../services/auth.services";
+import { useNavigate } from "react-router";
+
 
 const LoginPage = () => {
+
+    const navigate = useNavigate();
+
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -12,11 +17,9 @@ const LoginPage = () => {
 
         try {
             const response = await loginUserService(formData);
-
-            console.log(response);
-            alert("Login Successful");
-
-            // navigate("/");  // if using react-router
+            
+            // alert("Login Succesfull")
+            navigate("/");
         } catch (err) {
             setError(err.response?.data?.message || "Login Failed");
         } finally {

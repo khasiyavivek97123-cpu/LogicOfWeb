@@ -1,33 +1,27 @@
 import { useState } from "react";
-import LoginForm from "../components/Auth/LoginForm";
-import { loginUserService } from "../services/auth.services";
-import { useAuth } from "../context/Auth.context"   
-import { useNavigate } from "react-router";  
+import RegisterForm from "../components/Auth/RegisterForm";
+import { registerUser } from "../services/auth.services";
+import { useNavigate } from "react-router";
 
-const LoginPage = () => {
 
-    
+const RegisterPage = () => {
+
+    const navigate = useNavigate();
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const {fetchCurrentUser} = useAuth();
-
-    const navigateUser = useNavigate()
-    const handleLogin = async (formData) => {
+    const handleRegister = async (formData) => {
         setLoading(true);
         setError("");
 
         try {
-            const response = await loginUserService(formData);
+            const response = await registerUser(formData);
             
-            await fetchCurrentUser();
-
-            navigateUser('/')
-
-            
+            // alert("Login Succesfull")
+            navigate('/login')
         } catch (err) {
-            setError(err.response?.data?.message || "Login Failed");
+            setError(err.response?.data?.message || "Register Failed");
         } finally {
             setLoading(false);
         }
@@ -52,8 +46,8 @@ const LoginPage = () => {
                             </div>
                         )}
 
-                        <LoginForm
-                            onSubmit={handleLogin}
+                        <RegisterForm
+                            onSubmit={handleRegister}
                             loading={loading}
                         />
 
@@ -128,4 +122,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default RegisterPage;

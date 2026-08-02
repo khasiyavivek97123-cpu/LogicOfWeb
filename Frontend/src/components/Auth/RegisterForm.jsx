@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router";
 
-const LoginForm = ({ onSubmit, loading }) => {
+const RegisterForm = ({ onSubmit, loading }) => {
+    const [name,setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        onSubmit({ email, password });
+        onSubmit({ name, email, password });
         // setEmail("")
         // setPassword("")
     };
@@ -19,14 +20,29 @@ const LoginForm = ({ onSubmit, loading }) => {
                 <div className="bg-white border border-stone-200 rounded-2xl shadow-sm p-8">
                     <div className="mb-8 text-center">
                         <h1 className="text-3xl font-bold tracking-tight text-red-900">
-                            Welcome Back
+                            Hey There
                         </h1>
                         <p className="mt-2 text-sm text-stone-500">
-                            Sign in to continue to your account.
+                            Create your account to continue
                         </p>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
+                        
+                        <div>
+                            <label className="block mb-2 text-sm font-medium text-stone-700">
+                                Username
+                            </label>
+
+                            <input
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full rounded-lg border border-stone-300 bg-white px-4 py-3 text-stone-900 placeholder:text-stone-400 outline-none transition-all duration-200 focus:border-red-900 focus:ring-2 focus:ring-red-900/10"
+                                placeholder="Enter your name"
+                            />
+                        </div>
+
                         <div>
                             <label className="block mb-2 text-sm font-medium text-stone-700">
                                 Email
@@ -60,17 +76,17 @@ const LoginForm = ({ onSubmit, loading }) => {
                             disabled={loading}
                             className="w-full rounded-lg bg-red-900 px-4 py-3 font-semibold text-white shadow-sm transition-all duration-200 hover:bg-red-800 hover:shadow disabled:cursor-not-allowed disabled:opacity-70"
                         >
-                            {loading ? "Logging In..." : "Login"}
+                            {loading ? "Creating Account..." : "Create Account"}
                         </button>
                     </form>
 
                     <p className="mt-6 text-center text-sm text-stone-500">
-                        Don't have an account?{" "}
+                        Already have an account?{" "}
                         <Link
-                            to="/register"
+                            to="/login"
                             className="font-medium text-red-900 hover:text-red-700 transition-colors"
                         >
-                            Register here
+                            Login here
                         </Link>
                     </p>
                 </div>
@@ -79,4 +95,4 @@ const LoginForm = ({ onSubmit, loading }) => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;

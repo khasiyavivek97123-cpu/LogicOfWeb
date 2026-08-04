@@ -19,7 +19,7 @@ const RegisterPage = () => {
             const response = await registerUser(formData);
             
             // alert("Login Succesfull")
-            navigate('/login')
+            navigate('/')
         } catch (err) {
             setError(err.response?.data?.message || "Register Failed");
         } finally {

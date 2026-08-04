@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LoginForm from "../components/Auth/LoginForm";
 import { loginUserService } from "../services/auth.services";
 import { useAuth } from "../context/Auth.context"   
@@ -6,14 +6,18 @@ import { useNavigate } from "react-router";
 
 const LoginPage = () => {
 
-    
-
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    const {fetchCurrentUser} = useAuth();
+    const { fetchCurrentUser, isAuthenticated } = useAuth();
+    const navigateUser = useNavigate();
 
-    const navigateUser = useNavigate()
+    useEffect(() => {
+        if (isAuthenticated) {
+            navigateUser("/dashboard");
+        }
+    }, [isAuthenticated, navigateUser]);
+
     const handleLogin = async (formData) => {
         setLoading(true);
         setError("");
@@ -23,9 +27,8 @@ const LoginPage = () => {
             
             await fetchCurrentUser();
 
-            navigateUser('/')
+            navigateUser('/dashboard');
 
-            
         } catch (err) {
             setError(err.response?.data?.message || "Login Failed");
         } finally {

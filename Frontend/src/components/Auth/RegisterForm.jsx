@@ -83,7 +83,7 @@ const RegisterForm = ({ onSubmit, loading }) => {
                     <p className="mt-6 text-center text-sm text-stone-500">
                         Already have an account?{" "}
                         <Link
-                            to="/login"
+                            to="/"
                             className="font-medium text-red-900 hover:text-red-700 transition-colors"
                         >
                             Login here

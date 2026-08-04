@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getCurrentUser } from "../services/user.services.js";
 
+import { getCurrentUser } from "../services/user.services.js"
 
 const AuthContext = createContext();
 
@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
         try {
 
             const response = await getCurrentUser();
+
             setUser(response.data);
 
         } catch (error) {
@@ -35,23 +36,24 @@ export const AuthProvider = ({ children }) => {
 
     }, []);
 
-    const value = {
+    const logout = () => {
 
-        user,
-
-        loading,
-
-        isAuthenticated: !!user,
-
-        setUser,
-
-        fetchCurrentUser
+        setUser(null);
 
     };
 
     return (
 
-        <AuthContext.Provider value={value}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                isAuthenticated: !!user,
+                fetchCurrentUser,
+                setUser,
+                logout,
+            }}
+        >
 
             {children}
 

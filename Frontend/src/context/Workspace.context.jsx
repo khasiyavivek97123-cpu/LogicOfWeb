@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import {
     getAllWorkspacesService,
+    createWorkspaceService
 } from "../services/workspace.service";
 
 const WorkspaceContext = createContext();
@@ -41,6 +42,16 @@ export const WorkspaceProvider = ({ children }) => {
 
     };
 
+        const createWorkspace = async (workspaceData) => {
+
+        const response = await createWorkspaceService(workspaceData);
+
+        await fetchWorkspaces();
+
+        return response;
+
+    };
+
     useEffect(() => {
 
         fetchWorkspaces();
@@ -56,6 +67,7 @@ export const WorkspaceProvider = ({ children }) => {
                 loading,
                 fetchWorkspaces,
                 setCurrentWorkspace,
+                createWorkspace,
             }}
         >
 

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import ROLES from "../constants/roles.constants.js";
 
 const workspaceSchema = new mongoose.Schema(
     {
@@ -33,8 +34,8 @@ const workspaceSchema = new mongoose.Schema(
 
                 role: {
                     type: String,
-                    enum: ["OWNER", "ADMIN", "MEMBER"],
-                    default: "MEMBER",
+                    enum: ROLES,
+                    default: ROLES.MEMBER,
                 },
 
                 joinedAt: {

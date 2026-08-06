@@ -2,12 +2,14 @@ import { Router } from "express";
 import authRouter from "./auth.routes.js";
 import userRouter from './user.routes.js'
 import workspaceRouter from "./workspace.routes.js";
+import projectRouter from "./project.routes.js";
 
 const indexRouter = Router();
 
 indexRouter.use('/auth',authRouter)
 indexRouter.use('/user',userRouter)
 indexRouter.use("/workspaces", workspaceRouter);
+indexRouter.use("/workspaces", projectRouter);
 
 
 

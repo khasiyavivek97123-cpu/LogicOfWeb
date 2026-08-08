@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from "react-router";
-
+import WorkspaceSwitcher from "../components/Workspace/WorkspaceSwitcher";
 import { useAuth } from "../context/Auth.context";
 import { useWorkspace } from "../context/Workspace.context";
 
@@ -10,10 +10,9 @@ const DashboardLayout = () => {
     const { currentWorkspace } = useWorkspace();
 
     const navClass = ({ isActive }) =>
-        `flex items-center rounded-lg px-4 py-2 transition-all duration-200 ${
-            isActive
-                ? "bg-red-600 text-white"
-                : "text-gray-700 hover:bg-gray-100"
+        `flex items-center rounded-lg px-4 py-2 transition-all duration-200 ${isActive
+            ? "bg-red-600 text-white"
+            : "text-gray-700 hover:bg-gray-100"
         }`;
 
     return (
@@ -30,13 +29,9 @@ const DashboardLayout = () => {
 
                     </h1>
 
-                    <p className="mt-2 text-sm text-gray-500">
-
-                        {currentWorkspace
-                            ? currentWorkspace.name
-                            : "No Workspace"}
-
-                    </p>
+                    <div className="mt-3">
+                        <WorkspaceSwitcher />
+                    </div>
 
                 </div>
 

@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
 import WorkspacePage from "./pages/WorkspacePage";
+import ProjectsPage from "./pages/ProjectsPage";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./layouts/DashboardLayout";
@@ -36,6 +37,11 @@ function App() {
                     <Route
                         path="/workspaces"
                         element={<WorkspacePage />}
+                    />
+
+                    <Route
+                        path="/projects"
+                        element={<ProjectsPage />}
                     />
 
                 </Route>
